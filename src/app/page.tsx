@@ -127,6 +127,7 @@ export default function PhotoboothApp() {
           throw new Error("No camera devices found");
         }
       } catch (deviceError) {
+        console.error("Device enumeration error:", deviceError);
         addDebugInfo("Could not enumerate devices, proceeding anyway");
       }
 
@@ -257,7 +258,7 @@ export default function PhotoboothApp() {
     } finally {
       setIsLoading(false);
     }
-  }, [addDebugInfo]);
+  }, [addDebugInfo, isStreaming]);
 
   const stopCamera = useCallback(() => {
     addDebugInfo("Stopping camera...");
@@ -575,10 +576,13 @@ export default function PhotoboothApp() {
                 <div className="mt-2 text-sm text-red-300">
                   <p>Troubleshooting tips:</p>
                   <ul className="list-disc list-inside mt-1 space-y-1">
-                    <li>Make sure you're using HTTPS or localhost</li>
-                    <li>Click "Allow" when prompted for camera permission</li>
+                    <li>Make sure you are using HTTPS or localhost</li>
                     <li>
-                      Check that your camera isn't being used by another
+                      Click &quot;Allow&quot; when prompted for camera
+                      permission
+                    </li>
+                    <li>
+                      Check that your camera isn&apos;t being used by another
                       application
                     </li>
                     <li>
